@@ -1,6 +1,7 @@
-export default interface UserLoginData {
+export default interface UserData {
     id?: any | null,
-    username: string,
+    username?: string,
     password: string,
-    email?: string
+    passwordConfirm?: string,
+    email: string
 }

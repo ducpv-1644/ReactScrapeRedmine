@@ -1,27 +1,30 @@
-import http from "../http-common";
-import UserLoginData from "../types/user.type"
+import http from "../common/http-common";
+import UserData from "../types/user.type"
 
 class AuthService {
-    async login(data: UserLoginData) {
-        const response = await http.post("/signin", data);
-        if (response.data.accessToken) {
-            localStorage.setItem("user", JSON.stringify(response.data));
+    async signin(userData: UserData) {
+        const {data} = await http.post("/signin", userData);
+        if (data.code === 200) {
+            if (data.result.token !== undefined) {
+                localStorage.setItem("user", JSON.stringify(data.result));
+            }
         }
-        return response.data;
+        return data;
     }
 
-    async logout() {
-        localStorage.removeItem("user");
+    async signup(userData: UserData) {
+        const {data} = await http.post("/signup", userData);
+        return data;
     }
 
-    async register(data: UserLoginData) {
-        const response = await http.post("/signup", data);
-        return response.data;
+    getCurrentUser() {
+        const temp = localStorage.getItem('user');
+        return temp ? JSON.parse(temp) : null
     }
 
-    // getCurrentUser() {
-    //     return JSON.parse(localStorage.getItem('user'));
-    // }
+    isLogged() {
+        return this.getCurrentUser() ? true : false
+    }
 }
 
 export default new AuthService();
