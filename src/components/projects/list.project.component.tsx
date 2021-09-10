@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Card, Container, Row, Col } from 'react-bootstrap';
 import ProjectService from '../../services/project.service'
-import ProjectType from '../../types/project.type'
+import { ProjectType } from '../../types/project.type'
 
 type Props = {};
 
