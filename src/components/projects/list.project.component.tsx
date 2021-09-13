@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Card, Container, Row, Col } from 'react-bootstrap';
 import ProjectService from '../../services/project.service'
-import ProjectType from '../../types/project.type'
+import { ProjectType } from '../../types/project.type'
 
 type Props = {};
 
@@ -55,7 +55,7 @@ export default class ProjectList extends Component<Props, State> {
                                     <Card.Title>{project.name}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">coming soon...</Card.Subtitle>
                                     <Card.Text>comming soon...</Card.Text>
-                                    <Card.Link href="#">Details</Card.Link>
+                                    <Card.Link href={'/project/' + project.ID}>Details</Card.Link>
                                 </Card.Body>
                             </Card>
                         </Col>

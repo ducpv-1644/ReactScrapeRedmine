@@ -7,6 +7,7 @@ import SignIn from "./components/users/signin.component";
 import SignUp from "./components/users/signup.component";
 import HomePage from "./components/home.component";
 import authService from "services/auth.service";
+import ProjectDetail from "components/projects/detail.project.component";
 
 const PrivateRoute: any = (props: any) => {
   return authService.isLogged() ? (<Route path={props.path} exact={props.exact} component={props.component} />) :
@@ -16,9 +17,10 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <PrivateRoute exact path={["/", "/home"]} component={HomePage} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
+        <PrivateRoute exact path={["/", "/home"]} component={HomePage} />
+        <PrivateRoute exact path="/project/:id" component={ProjectDetail} />
       </Switch>
     )
   }

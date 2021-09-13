@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
+import authService from "services/auth.service";
 
 class NavbarComponent extends Component {
     constructor(props: RouteComponentProps) {
@@ -13,6 +14,7 @@ class NavbarComponent extends Component {
     }
 
     render() {
+        const isLogged = authService.isLogged()
         return (
             <div>
                 <Navbar bg="dark" expand="lg" variant="dark">
@@ -22,9 +24,15 @@ class NavbarComponent extends Component {
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
                                 <Link to={"/home"} className="nav-link">Home</Link>
-                                <Link to={"/signup"} className="nav-link">Sign Up</Link>
-                                <Link to={"/signin"} className="nav-link">Sign In</Link>
-                                <Link to={"/home"} className="nav-link" onClick={this.signOut}>Sign out</Link>
+                                { isLogged ? (
+                                    <Link to={"/home"} className="nav-link" onClick={this.signOut}>Sign out</Link>
+                                ) : (
+                                    <Link to={"/signup"} className="nav-link">Sign Up</Link>
+                                )}
+                                { isLogged ? (null) : (
+                                    <Link to={"/signin"} className="nav-link">Sign In</Link>
+                                ) }
+
                                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                     <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                     <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
