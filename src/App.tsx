@@ -3,9 +3,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-import SignIn from "./components/users/signin.component";
-import SignUp from "./components/users/signup.component";
-import HomePage from "./components/home.component";
+import SignIn from "./components/auth/signin.component";
+import SignUp from "./components/auth/signup.component";
+import ListMembers from "./components/members/list.members.component";
 import authService from "services/auth.service";
 import ProjectDetail from "components/projects/detail.project.component";
 
@@ -19,7 +19,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
-        <PrivateRoute exact path={["/", "/home"]} component={HomePage} />
+        <PrivateRoute exact path={["/", "/home"]} component={ListMembers} />
         <PrivateRoute exact path="/project/:id" component={ProjectDetail} />
       </Switch>
     )

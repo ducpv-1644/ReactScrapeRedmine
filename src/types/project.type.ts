@@ -37,3 +37,11 @@ export interface ProjectDetailParamsType {
     project_id?: string,
     project?: string
 }
+
+export interface ListMembersType {
+    MemberID: string,
+    MemberName: string,
+    ProjectName: string,
+    SumEstimatedTime: any,
+    SumSpentTime: any,
+}
