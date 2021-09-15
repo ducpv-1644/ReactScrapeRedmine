@@ -7,7 +7,7 @@ import SignIn from "./components/auth/signin.component";
 import SignUp from "./components/auth/signup.component";
 import ListMembers from "./components/members/list.members.component";
 import authService from "services/auth.service";
-import ProjectDetail from "components/projects/detail.project.component";
+import MemberDetail from "components/members/detail.members.component";
 
 const PrivateRoute: any = (props: any) => {
   return authService.isLogged() ? (<Route path={props.path} exact={props.exact} component={props.component} />) :
@@ -20,7 +20,8 @@ class App extends Component {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
         <PrivateRoute exact path={["/", "/home"]} component={ListMembers} />
-        <PrivateRoute exact path="/project/:id" component={ProjectDetail} />
+        <PrivateRoute exact path="/member/:id" component={MemberDetail} />
+  
       </Switch>
     )
   }
