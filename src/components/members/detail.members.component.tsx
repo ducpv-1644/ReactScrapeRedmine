@@ -25,9 +25,11 @@ type RangeDate = {
 
 type State = {
     dates: RangeDate,
-    rowsDataIssues:Array<any>,
+    rowsDataIssues: Array<any>,
     message: string,
-    errorRaised: boolean
+    errorRaised: boolean,
+    spentTime: string,
+    estTime: string
 };
 
 export default class MemberDetail extends Component<Props, State> {
@@ -39,6 +41,9 @@ export default class MemberDetail extends Component<Props, State> {
                 startDate: "",
                 endDate: ""
             },
+            spentTime: "",
+            estTime: "",
+
             rowsDataIssues: [],
             message: "",
             errorRaised: false
@@ -48,28 +53,31 @@ export default class MemberDetail extends Component<Props, State> {
     componentDidMount() {
         this.retrieveIssuesDetail();
     }
-  
+
     async retrieveIssuesDetail() {
         const idMember = this.props.match.params.id
-        const res = await IssuesService.getAllIssues(idMember)
-       
+        const res = await IssuesService.GetIssueByMember(idMember)
+    
         if (res.code !== 200) {
             this.setState({
                 rowsDataIssues: [],
+                spentTime: res.result[0].sum_spent_time,
+                estTime: res.result[0].sum_est_time,
                 message: res.message,
                 errorRaised: true
             });
             return
         }
         this.setState({
-                
-                rowsDataIssues: res.result,
-                
+
+            rowsDataIssues: res.result[0].IssueResult,
+            spentTime: res.result[0].sum_spent_time,
+            estTime: res.result[0].sum_est_time,
         });
     }
     render() {
-       
-        const { dates, rowsDataIssues} = this.state
+
+        const { dates, rowsDataIssues,spentTime,estTime } = this.state
         return (
             <div>
                 <NavbarComponent />
@@ -100,7 +108,11 @@ export default class MemberDetail extends Component<Props, State> {
                         columns={ThListIssueDatatable}
                         data={rowsDataIssues}
                         pagination
-                
+                    />
+                    <input
+                        type="text"
+                        value={"Spent Time: "+spentTime + "--"+ "Est Time" + estTime }
+                        className="time" 
                     />
                 </Container>
             </div>

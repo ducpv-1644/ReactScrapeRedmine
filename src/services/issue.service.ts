@@ -4,8 +4,8 @@ import AuthService from "./auth.service"
 
 
 class IssuesService {
-        async getAllIssues(idMember:any) {
-            const {data} = await http.get(`issue?id=${idMember}`, {headers: AuthService.authHeader()});
+        async GetIssueByMember(idMember:any) {
+            const {data} = await http.get(`member/${idMember}`, {headers: AuthService.authHeader()});
             return data;
         }
 }
