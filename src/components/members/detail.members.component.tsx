@@ -57,12 +57,12 @@ export default class MemberDetail extends Component<Props, State> {
     async retrieveIssuesDetail() {
         const idMember = this.props.match.params.id
         const res = await IssuesService.GetIssueByMember(idMember)
-    
+
         if (res.code !== 200) {
             this.setState({
                 rowsDataIssues: [],
-                spentTime: res.result[0].sum_spent_time,
-                estTime: res.result[0].sum_est_time,
+                spentTime: res.result.sum_spent_time,
+                estTime: res.result.sum_est_time,
                 message: res.message,
                 errorRaised: true
             });
@@ -70,14 +70,14 @@ export default class MemberDetail extends Component<Props, State> {
         }
         this.setState({
 
-            rowsDataIssues: res.result[0].IssueResult,
-            spentTime: res.result[0].sum_spent_time,
-            estTime: res.result[0].sum_est_time,
+            rowsDataIssues: res.result.IssueResult,
+            spentTime: res.result.sum_spent_time,
+            estTime: res.result.sum_est_time,
         });
     }
     render() {
 
-        const { dates, rowsDataIssues,spentTime,estTime } = this.state
+        const { dates, rowsDataIssues, spentTime, estTime } = this.state
         return (
             <div>
                 <NavbarComponent />
@@ -103,16 +103,14 @@ export default class MemberDetail extends Component<Props, State> {
                     </FloatingLabel>
                 </Container>
                 <Container>
+                    <p></p>
+                    <p> <b>Total Est Time : </b>{estTime}h</p>
+                    <p> <b>Total Spent Time: </b>{spentTime}h</p>
                     <DataTable
                         title="Issues Detail"
                         columns={ThListIssueDatatable}
                         data={rowsDataIssues}
                         pagination
-                    />
-                    <input
-                        type="text"
-                        value={"Spent Time: "+spentTime + "--"+ "Est Time" + estTime }
-                        className="time" 
                     />
                 </Container>
             </div>

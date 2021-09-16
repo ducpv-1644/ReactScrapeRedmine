@@ -27,7 +27,7 @@ export const ThListMembersDatatable = [
 export const ThListIssueDatatable =[
     {
         name: '#',
-        issueID: 'issue_id',
+        selector: 'issue_id',
         sortable: true,
     },
     {
