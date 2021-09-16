@@ -7,9 +7,7 @@ import { Component } from "react";
 import { RouteComponentProps } from 'react-router-dom';
 import { FloatingLabel, Form, Container } from 'react-bootstrap'
 import DateRangePicker from 'react-bootstrap-daterangepicker';
-import { MDBDataTableV5 } from 'mdbreact';
 import DataTable from "react-data-table-component";
-import { IssueType, MenberType } from 'types/project.type';
 import IssuesService from '../../services/issue.service'
 import { ThListIssueDatatable } from "./constants"
 import NavbarComponent from 'components/layout/layout.component'
@@ -52,7 +50,7 @@ export default class MemberDetail extends Component<Props, State> {
     }
   
     async retrieveIssuesDetail() {
-        let idMember = this.props.match.params.id
+        const idMember = this.props.match.params.id
         const res = await IssuesService.getAllIssues(idMember)
        
         if (res.code !== 200) {

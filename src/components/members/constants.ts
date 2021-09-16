@@ -73,7 +73,16 @@ export const ThListIssueDatatable =[
     {
         name: '%Done',
         selector: 'issue_done_ratio',
+        sortable: true,
     },
-
+    {
+        name: 'SumSpentTime',
+        selector: 'sum_spent_time',
+    },
+    {
+        name: 'SumEstimatedTime',
+        selector: 'sum_est_time',
+        
+    },
 
 ]
