@@ -2,13 +2,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
 import { Component } from "react";
 import { RouteComponentProps } from 'react-router-dom';
 import { FloatingLabel, Form, Container } from 'react-bootstrap'
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import DataTable from "react-data-table-component";
-import IssuesService from '../../services/issue.service'
+import MemberService from '../../services/member.service'
 import { ThListIssueDatatable } from "./constants"
 import NavbarComponent from 'components/layout/layout.component'
 
@@ -56,7 +55,7 @@ export default class MemberDetail extends Component<Props, State> {
 
     async retrieveIssuesDetail() {
         const idMember = this.props.match.params.id
-        const res = await IssuesService.GetIssueByMember(idMember)
+        const res = await MemberService.GetIssueByMember(idMember)
 
         if (res.code !== 200) {
             this.setState({
