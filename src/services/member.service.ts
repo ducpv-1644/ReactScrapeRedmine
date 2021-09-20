@@ -10,11 +10,13 @@ type getAllMembersType = {
 
 class MemberService {
     async getAllMembers(): Promise<getAllMembersType> {
-        const { data } = await http.get("/members", { headers: AuthService.authHeader() });
+        //members?ranges=09/01/2021-09/06/2021
+        const { data } = await http.get("/members?ranges=09/01/2021-09/06/2021", { headers: AuthService.authHeader() });
         return data;
     }
+    //member/fake01?ranges=09/01/2021-09/06/2021
     async GetIssueByMember(idMember: any) {
-        const { data } = await http.get(`member/${idMember}`, { headers: AuthService.authHeader() });
+        const { data } = await http.get(`member/${idMember}?ranges=09/01/2021-09/06/2021`, { headers: AuthService.authHeader() });
         return data;
     }
 }
