@@ -9,14 +9,12 @@ type getAllMembersType = {
 }
 
 class MemberService {
-    async getAllMembers(): Promise<getAllMembersType> {
-        //members?ranges=09/01/2021-09/06/2021
-        const { data } = await http.get("/members?ranges=09/01/2021-09/06/2021", { headers: AuthService.authHeader() });
+    async getAllMembers(startDate: any, endDate: any): Promise<getAllMembersType> {
+        const { data } = await http.get(`/members?ranges=${startDate}-${endDate}`, { headers: AuthService.authHeader() });
         return data;
     }
-    //member/fake01?ranges=09/01/2021-09/06/2021
-    async GetIssueByMember(idMember: any) {
-        const { data } = await http.get(`member/${idMember}?ranges=09/01/2021-09/06/2021`, { headers: AuthService.authHeader() });
+    async GetIssueByMember(idMember: any,startDate: any, endDate: any) {
+        const { data } = await http.get(`member/${idMember}?ranges=${startDate}-${endDate}`, { headers: AuthService.authHeader() });
         return data;
     }
 }
