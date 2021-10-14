@@ -28,7 +28,9 @@ type State = {
     message: string,
     errorRaised: boolean,
     spentTime: string,
-    estTime: string
+    estTime: string,
+    spentTimeProject: string,
+    estTimeProject: string
 };
 
 export default class MemberDetail extends Component<Props, State> {
@@ -58,6 +60,8 @@ export default class MemberDetail extends Component<Props, State> {
             },
             spentTime: "",
             estTime: "",
+            spentTimeProject: "",
+            estTimeProject: "",
 
             rowsDataIssues: [],
             message: "",
@@ -87,6 +91,8 @@ export default class MemberDetail extends Component<Props, State> {
                 rowsDataIssues: [],
                 spentTime: res.result.sum_spent_time,
                 estTime: res.result.sum_est_time,
+                spentTimeProject : res.result.sum_spent_project_time,
+                estTimeProject : res.result.sum_est_project_time,
                 message: res.message,
                 errorRaised: true
             });
@@ -96,11 +102,14 @@ export default class MemberDetail extends Component<Props, State> {
             rowsDataIssues: res.result.IssueResult !== null ? res.result.IssueResult : [],
             spentTime: res.result.sum_spent_time,
             estTime: res.result.sum_est_time,
+             spentTimeProject : res.result.sum_spent_project_time,
+            estTimeProject : res.result.sum_est_project_time,
         });
     }
     render() {
-
-        const { dates, rowsDataIssues, spentTime, estTime } = this.state
+       
+        const { dates, rowsDataIssues, spentTime, estTime ,spentTimeProject ,estTimeProject} = this.state
+        console.log("spentTimeProject",spentTimeProject)
         return (
             <div>
                 <NavbarComponent />
@@ -128,6 +137,8 @@ export default class MemberDetail extends Component<Props, State> {
                     <p></p>
                     <p> <b>Total Est Time : </b>{estTime}h</p>
                     <p> <b>Total Spent Time: </b>{spentTime}h</p>
+                    <p> <b>Total Est Project: </b>{estTimeProject.substring(1, estTimeProject.length-1)}h</p>
+                    <p> <b>Total Spent Project: </b>{spentTimeProject.substring(1, spentTimeProject.length-1)}h</p>
                     <DataTable
                         title="Issues Detail"
                         columns={ThListIssueDatatable}
