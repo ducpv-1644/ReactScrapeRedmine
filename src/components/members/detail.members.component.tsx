@@ -18,8 +18,8 @@ interface RouterProps {
 type Props = RouteComponentProps<RouterProps>;
 
 type RangeDate = {
-    startDate: string,
-    endDate: string
+    startDate: any,
+    endDate: any
 };
 
 type State = {
@@ -35,10 +35,26 @@ export default class MemberDetail extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.retrieveIssuesDetail = this.retrieveIssuesDetail.bind(this);
+        this.handleApply = this.handleApply.bind(this)
+        var today = new Date(),
+            date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+        if ((today.getMonth() + 1) <= 9) {
+            var getMonth = '0' + (today.getMonth() + 1)
+            date = getMonth + '/' + today.getDate() + '/' + today.getFullYear();
+        }
+        if (today.getDate() <= 9) {
+            var geDate = '0' + today.getDate()
+            date = (today.getMonth() + 1) + '/' + geDate + '/' + today.getFullYear();
+        }
+        if (((today.getMonth() + 1) <= 9) && (today.getDate() <= 9)) {
+            var getMonth = '0' + (today.getMonth() + 1)
+            var geDate = '0' + today.getDate()
+            date = getMonth + '/' + geDate + '/' + today.getFullYear();
+        }
         this.state = {
             dates: {
-                startDate: "",
-                endDate: ""
+                startDate: date,
+                endDate: date,
             },
             spentTime: "",
             estTime: "",
@@ -47,15 +63,24 @@ export default class MemberDetail extends Component<Props, State> {
             message: "",
             errorRaised: false
         };
+
     }
 
     componentDidMount() {
         this.retrieveIssuesDetail();
     }
-
+    handleApply(event: any, picker: any) {
+        this.setState({
+            dates: {
+                startDate: picker.startDate.format("MM/DD/YYYY"),
+                endDate: picker.endDate.format("MM/DD/YYYY")
+            }
+        })
+        this.retrieveIssuesDetail();
+    }
     async retrieveIssuesDetail() {
         const idMember = this.props.match.params.id
-        const res = await MemberService.GetIssueByMember(idMember)
+        const res = await MemberService.GetIssueByMember(idMember, this.state.dates.startDate, this.state.dates.endDate)
 
         if (res.code !== 200) {
             this.setState({
@@ -68,8 +93,7 @@ export default class MemberDetail extends Component<Props, State> {
             return
         }
         this.setState({
-
-            rowsDataIssues: res.result.IssueResult,
+            rowsDataIssues: res.result.IssueResult !== null ? res.result.IssueResult : [],
             spentTime: res.result.sum_spent_time,
             estTime: res.result.sum_est_time,
         });
@@ -91,11 +115,10 @@ export default class MemberDetail extends Component<Props, State> {
                     </FloatingLabel>
                     <FloatingLabel controlId="floatingSelect" label="Range date with selects">
                         <DateRangePicker
-                            initialSettings={{ startDate: '1/1/2014', endDate: '3/1/2014' }}
-                        >
+                            onApply={this.handleApply}                        >
                             <input
                                 type="text"
-                                value={dates.startDate + "-" + dates.endDate}
+                                // value={dates.startDate + "-" + dates.endDate}
                                 className="form-control"
                             />
                         </DateRangePicker>

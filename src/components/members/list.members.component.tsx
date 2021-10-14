@@ -13,8 +13,8 @@ import MemberService from '../../services/member.service'
 
 
 type RangeDate = {
-    startDate: string,
-    endDate: string
+    startDate: any,
+    endDate: any
 };
 
 type State = {
@@ -29,11 +29,27 @@ export default class ListMembers extends Component<RouteComponentProps, State> {
         super(props);
         this.retrieveListMembers = this.retrieveListMembers.bind(this);
         this.handleRowClicked = this.handleRowClicked.bind(this);
+        this.handleApply = this.handleApply.bind(this)
+        var today = new Date(),
+            date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+        if ((today.getMonth() + 1) <= 9) {
+            var getMonth = '0' + (today.getMonth() + 1)
+            date = getMonth + '/' + today.getDate() + '/' + today.getFullYear();
+        }
+        if (today.getDate() <= 9) {
+            var geDate = '0' + today.getDate()
+            date = (today.getMonth() + 1) + '/' + geDate + '/' + today.getFullYear();
+        }
+        if (((today.getMonth() + 1) <= 9) && (today.getDate() <= 9)) {
+            var getMonth = '0' + (today.getMonth() + 1)
+            var geDate = '0' + today.getDate()
+            date = getMonth + '/' + geDate + '/' + today.getFullYear();
+        }
 
         this.state = {
             dates: {
-                startDate: "",
-                endDate: ""
+                startDate: date,
+                endDate: date
             },
             message: "",
             listMemberDataTable: [],
@@ -45,12 +61,23 @@ export default class ListMembers extends Component<RouteComponentProps, State> {
         this.retrieveListMembers();
     }
 
+    handleApply(event: any, picker: any) {
+        this.setState({
+            dates: {
+                startDate: picker.startDate.format("MM/DD/YYYY"),
+                endDate: picker.endDate.format("MM/DD/YYYY")
+            }
+        })
+        this.retrieveListMembers();
+    }
+
     handleRowClicked(row: any) {
+
         this.props.history.push(`/member/${row.MemberID}`)
     }
 
     async retrieveListMembers() {
-        const res = await MemberService.getAllMembers()
+        const res = await MemberService.getAllMembers(this.state.dates.startDate, this.state.dates.endDate)
         if (res.code !== 200) {
             this.setState({
                 listMemberDataTable: [],
@@ -62,6 +89,7 @@ export default class ListMembers extends Component<RouteComponentProps, State> {
         this.setState({
             listMemberDataTable: res.result
         });
+
     }
 
     render() {
@@ -78,13 +106,15 @@ export default class ListMembers extends Component<RouteComponentProps, State> {
                         </Form.Select>
                     </FloatingLabel>
                     <FloatingLabel controlId="floatingSelect" label="Range date with selects">
-                        <DateRangePicker
-                            initialSettings={{ startDate: '1/1/2014', endDate: '3/1/2014' }}
+                        <DateRangePicker  
+                            onApply={this.handleApply}
                         >
                             <input
+                                 id="fname"
                                 type="text"
-                                value={dates.startDate + "-" + dates.endDate}
+                                // value={dates.startDate + "-" + dates.endDate}
                                 className="form-control"
+
                             />
                         </DateRangePicker>
                     </FloatingLabel>
