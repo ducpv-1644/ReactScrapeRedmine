@@ -91,8 +91,8 @@ export default class ListMembers extends Component<RouteComponentProps, State> {
         });
 
     }
-
     render() {
+        console.log("listMemberDataTable", this.state.listMemberDataTable)
         const { dates, listMemberDataTable } = this.state
         return (
             <div>

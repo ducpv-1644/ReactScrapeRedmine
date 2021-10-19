@@ -1,25 +1,26 @@
+
 export const ThListMembersDatatable = [
     {
         name: '#',
-        selector: 'MemberID',
+        selector:(row:any) => row.MemberID,
         sortable: true,
     },
     {
         name: 'Member name',
-        selector: 'MemberName',
+        selector: (row:any) => row.MemberName,
     },
     {
         name: 'Projects',
-        selector: 'ProjectName',
+        selector: (row:any) => row.ProjectName,
     },
     {
         name: 'Total Estimated Time',
-        selector: 'SumEstimatedTime',
+        selector: (row:any) => row.SumEstimatedTime,
         sortable: true,
     },
     {
         name: 'Total Spent Time',
-        selector: 'SumSpentTime',
+        selector: (row:any) => row.SumSpentTime,
         sortable: true,
     }
 ]
@@ -27,52 +28,52 @@ export const ThListMembersDatatable = [
 export const ThListIssueDatatable =[
     {
         name: '#',
-        selector: 'issue_id',
+        selector: (row:any) => row.issue_id,
         sortable: true,
     },
     {
         name: 'Project',
-        selector: 'issue_project',
+        selector:(row:any) => row.issue_project,
     },
     {
         name: 'Tracker',
-        selector: 'issue_tracker',
+        selector: (row:any) => row.issue_tracker,
     },
     {
         name: 'Status',
-        selector: 'issue_status',
+        selector:(row:any) => row.issue_status,
         sortable: true,
     },
     {
         name: 'Priority',
-        selector: 'issue_priority',
+        selector: (row:any) => row.issue_priority,
         sortable: true,
     },
     {
         name: 'Subject',
-        selector: 'issue_subject',
+        selector: (row:any) => row.issue_subject,
     },
     {
         name: 'Assignee',
-        selector: 'issue_assignee',
+        selector: (row:any) => row.issue_assignee,
     },
     {
         name: 'Target version',
-        selector: 'issue_target_version',
+        selector: (row:any) => row.issue_target_version,
     },
     {
         name: 'Due date',
-        selector: 'issue_due_date',
+        selector: (row:any) => row.issue_due_date,
         sortable: true,
     },
     {
         name: 'Estimated time',
-        selector: 'issue_estimated_time',
+        selector: (row:any) => row.issue_estimated_time,
         sortable: true,
     },
     {
         name: '%Done',
-        selector: 'issue_done_ratio',
+        selector: (row:any) => row.issue_done_ratio,
         sortable: true,
     },
 ]
