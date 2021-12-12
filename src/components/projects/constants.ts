@@ -89,3 +89,14 @@ export const ThListMemberDatatable = [
         width: 100,
     }
 ]
+
+export const ThListProjectDatatable = [
+    {
+        name: 'ID',
+        selector:(row:any) => row.ID,
+    },
+    {
+        name: 'Version',
+        selector:(row:any) => row.version,
+    },
+]

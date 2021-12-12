@@ -1,7 +1,12 @@
 import { Component } from "react";
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import {Card, Container, Row, Col, FloatingLabel, Form} from 'react-bootstrap';
 import ProjectService from '../../services/project.service'
 import { ProjectType } from '../../types/project.type'
+import DateRangePicker from "react-bootstrap-daterangepicker";
+import DataTable from "react-data-table-component";
+import {ThListIssueDatatable} from "../members/constants";
+import {ThListProjectDatatable} from "./constants";
+import NavbarComponent from "../layout/layout.component";
 
 type Props = {};
 
@@ -45,6 +50,29 @@ export default class ProjectList extends Component<Props, State> {
     render() {
         const { projects } = this.state
         return (
+            <div>
+                <NavbarComponent />
+                <Container>
+                    <FloatingLabel controlId="floatingSelect" label="Range type with selects">
+                        <Form.Select aria-label="Floating label select example">
+                            <option>All</option>
+                            <option value="week">Week</option>
+                            <option value="">Quarter</option>
+                            <option value="3">effort</option>
+                        </Form.Select>
+                    </FloatingLabel>
+                    <FloatingLabel controlId="floatingSelect" label="Range date with selects">
+                        <DateRangePicker
+                        >
+                            <input
+                                id="fname"
+                                type="text"
+                                className="form-control"
+
+                            />
+                        </DateRangePicker>
+                    </FloatingLabel>
+                </Container>
             <Container>
                 <h1>List Projects</h1>
                 <Row xs={1} md={5} className="g-4">
@@ -62,6 +90,7 @@ export default class ProjectList extends Component<Props, State> {
                     ))}
                 </Row>
             </Container>
+            </div>
         )
     }
 }

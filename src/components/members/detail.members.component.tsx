@@ -112,6 +112,7 @@ export default class MemberDetail extends Component<Props, State> {
         console.log("spentTimeProject",spentTimeProject)
         return (
             <div>
+
                 <NavbarComponent />
                 <Container>
                     <FloatingLabel controlId="floatingSelect" label="Range type with selects">

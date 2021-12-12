@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import { Component } from "react";
 import { RouteComponentProps } from 'react-router-dom';
-import { FloatingLabel, Form, Container } from 'react-bootstrap'
+import { FloatingLabel, Form, Container,Navbar,Nav,NavDropdown } from 'react-bootstrap'
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import DataTable from "react-data-table-component";
 
@@ -78,6 +78,7 @@ export default class ListMembers extends Component<RouteComponentProps, State> {
 
     async retrieveListMembers() {
         const res = await MemberService.getAllMembers(this.state.dates.startDate, this.state.dates.endDate)
+        console.log("Ress",res.result)
         if (res.code !== 200) {
             this.setState({
                 listMemberDataTable: [],
@@ -96,6 +97,18 @@ export default class ListMembers extends Component<RouteComponentProps, State> {
         const { dates, listMemberDataTable } = this.state
         return (
             <div>
+                <Navbar bg="light" expand="lg">
+                    <Container>
+                        <Navbar.Brand href="#home">Tool CEV07</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="me-auto">
+                                <Nav.Link href="#home">Home</Nav.Link>
+                                <Nav.Link href="/project">Project</Nav.Link>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
                 <Container>
                     <FloatingLabel controlId="floatingSelect" label="Range type with selects">
                         <Form.Select aria-label="Floating label select example">

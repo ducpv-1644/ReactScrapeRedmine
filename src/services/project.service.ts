@@ -12,6 +12,13 @@ class ProjectService {
         const {data} = await http.get(`effort?project_id=${params.project_id}&filter=effort`, {headers: AuthService.authHeader()});
         return data;
     }
+    async GetAllVersionProject(idProject: any){
+        const {data} = await http.get(`project_versions?project_id=${idProject}`, {headers: AuthService.authHeader()});
+        return data;
+    }
+    async CrawlIssueByVersion(idProject: any, version:any){
+       return  await http.get(`crawl_issues?project_id=${idProject}&version=${version}`, {headers: AuthService.authHeader()});
+    }
 }
 
 export default new ProjectService();
