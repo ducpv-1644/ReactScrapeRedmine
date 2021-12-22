@@ -99,12 +99,13 @@ export default class ListMembers extends Component<RouteComponentProps, State> {
             <div>
                 <Navbar bg="light" expand="lg">
                     <Container>
-                        <Navbar.Brand href="#home">Tool CEV07</Navbar.Brand>
+                        <Navbar.Brand href="#">Tool CEV07</Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                             <Nav className="me-auto">
                                 <Nav.Link href="#home">Home</Nav.Link>
                                 <Nav.Link href="/project">Project</Nav.Link>
+                                <Nav.Link href="/config/project">Config</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

@@ -11,6 +11,8 @@ import DateRangePicker from "react-bootstrap-daterangepicker";
 import DataTable from 'react-data-table-component';
 import axios from 'axios'
 import http from "../../common/http-common";
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 
 import NavbarComponent from "../layout/layout.component";
 
@@ -42,30 +44,6 @@ export default class ProjectVersion extends Component<Props, State> {
         };
     }
 
-    onSubmit = () => {
-        const idProject = this.props.match.params.id
-        return ProjectService.CrawlIssueByVersion(idProject, this.state.val)
-    };
-    handleButtonClick = (id: any) => {
-        const idProject = this.props.match.params.id
-        const token = AuthService.authHeader().Authorization
-        console.log("token",token)
-        console.log('clicked');
-        console.log(id);
-        axios({
-            method: 'post',
-            url: 'http://localhost:8000/version_project',
-            data: {
-                'id': id,
-                'project_id':idProject,
-            },
-            headers: {
-                'Authorization': `${token}`,
-                'Content-type': 'application/json'
-            }
-        })
-
-    };
 
     componentDidMount() {
         this.retrieveProjects();
@@ -73,7 +51,7 @@ export default class ProjectVersion extends Component<Props, State> {
 
     async retrieveProjects() {
         const idProject = this.props.match.params.id
-        const res = await ProjectService.GetAllVersionProject(idProject);
+        const res = await ProjectService.GetConfig(idProject);
         if (res.code !== 200) {
             this.setState({
                 projects: [],
@@ -89,29 +67,54 @@ export default class ProjectVersion extends Component<Props, State> {
 
     render() {
         const {projects} = this.state
+        console.log("projects", projects)
+
         let ThListProjectDatatable = [
             {
                 name: 'ID',
                 selector: (row: any) => row.ID,
             },
             {
-                name: 'Version',
-                selector: (row: any) => row.version,
+                name: 'Service',
+                selector: (row: any) => row.service,
             },
             {
-                name: 'Current version',
-                selector: (row: any) => row.current == true ? "true" : "false",
+                name: 'Channel ID',
+                selector: (row: any) => row.channel_id,
             },
             {
-                cell: (row: any) => <button onClick={() => this.handleButtonClick(row.ID)}
-                                            id={row.ID}>Set Version</button>,
-                ignoreRowClick: true,
-                allowOverflow: true,
-                button: true,
+                name: 'Member ID',
+                selector: (row: any) => row.member_id,
+            },
+            {
+                name: 'Project ID',
+                selector: (row: any) => row.project_id,
+            },
+            {
+                cell: (row: any) => <Popup trigger={<button> Trigger</button>}position="right center">
+                    <form>
+                        <label>
+                            Service:
+                            <input type="text" value={projects.service} />
+                        </label>
+                        <label>
+                            Channel ID:
+                            <input type="text" name="name" />
+                        </label>
+                        <label>
+                            Member ID:
+                            <input type="text" name="name" />
+                        </label>
+                        <label>
+                            Project ID:
+                            <input type="text" name="name" />
+                        </label>
+                        <input type="submit" value="Submit" />
+                    </form>
+                </Popup>
             },
 
         ];
-
         return (
             <div>
                 <NavbarComponent/>
@@ -134,26 +137,6 @@ export default class ProjectVersion extends Component<Props, State> {
                             />
                         </DateRangePicker>
                     </FloatingLabel>
-                </Container>
-                <Container>
-                    <Form className="col-md-12">
-                        <Form.Control
-                            className="textFeedback"
-                            as="textarea"
-                            placeholder="version"
-                            value={this.state.val}
-                            onChange={e => this.setState({val: e.target.value})}
-                            type="text"
-                            style={{marginTop: "50px", width: "200px"}}
-                        />
-                        <Button
-                            className="btnFormSend"
-                            variant="outline-success"
-                            onClick={this.onSubmit}
-                        >
-                            Crawl Version
-                        </Button>
-                    </Form>
                 </Container>
                 <Container>
                     <DataTable

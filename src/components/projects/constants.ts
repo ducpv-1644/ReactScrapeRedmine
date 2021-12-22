@@ -1,3 +1,7 @@
+import {Button} from "react-bootstrap";
+import {isRowSelected} from "react-data-table-component/dist/src/DataTable/util";
+
+
 export const ThListIssuesDatatable = [
     {
         label: '#',
@@ -90,13 +94,4 @@ export const ThListMemberDatatable = [
     }
 ]
 
-export const ThListProjectDatatable = [
-    {
-        name: 'ID',
-        selector:(row:any) => row.ID,
-    },
-    {
-        name: 'Version',
-        selector:(row:any) => row.version,
-    },
-]
+

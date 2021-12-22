@@ -3,9 +3,6 @@ import {Card, Container, Row, Col, FloatingLabel, Form} from 'react-bootstrap';
 import ProjectService from '../../services/project.service'
 import { ProjectType } from '../../types/project.type'
 import DateRangePicker from "react-bootstrap-daterangepicker";
-import DataTable from "react-data-table-component";
-import {ThListIssueDatatable} from "../members/constants";
-import {ThListProjectDatatable} from "./constants";
 import NavbarComponent from "../layout/layout.component";
 
 type Props = {};
@@ -83,7 +80,8 @@ export default class ProjectList extends Component<Props, State> {
                                     <Card.Title>{project.name}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">coming soon...</Card.Subtitle>
                                     <Card.Text>comming soon...</Card.Text>
-                                    <Card.Link href={'/project/' + project.ID}>Details</Card.Link>
+                                    <Card.Link href={'/project/' + project.ID}>SetVerion</Card.Link>
+                                    <Card.Link href={'config/project/' + project.ID}>Config</Card.Link>
                                 </Card.Body>
                             </Card>
                         </Col>
