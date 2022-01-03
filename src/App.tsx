@@ -23,7 +23,7 @@ class App extends Component {
       <Switch>
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
-        <PrivateRoute exact path={["/", "/home"]} component={ListMembers} />
+        <PrivateRoute exact path={["/", "/home"]} component={ListProject} />
         <PrivateRoute exact path="/member/:id" component={MemberDetail} />
           <PrivateRoute exact path="/project" component={ListProject} />
           <PrivateRoute exact path="/config/project/:id" component={ProjectConfig} />
