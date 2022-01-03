@@ -44,27 +44,27 @@ export default class ProjectVersion extends Component<Props, State> {
 
     onSubmit = () => {
         const idProject = this.props.match.params.id
+        window.location.reload();
         return ProjectService.CrawlIssueByVersion(idProject, this.state.val)
+
     };
     handleButtonClick = (id: any) => {
         const idProject = this.props.match.params.id
         const token = AuthService.authHeader().Authorization
-        console.log("token",token)
-        console.log('clicked');
-        console.log(id);
+        console.log("idProject", idProject)
+        const idProjects = JSON.parse(idProject)
         axios({
             method: 'post',
-            url: 'http://localhost:8000/version_project',
+            url: 'http://10.0.4.11:7000/version_project',
             data: {
-                'id': id,
-                'project_id':idProject,
+                id: id, project_id: idProjects
             },
             headers: {
                 'Authorization': `${token}`,
                 'Content-type': 'application/json'
             }
         })
-
+        window.location.reload();
     };
 
     componentDidMount() {
@@ -105,6 +105,7 @@ export default class ProjectVersion extends Component<Props, State> {
             {
                 cell: (row: any) => <button onClick={() => this.handleButtonClick(row.ID)}
                                             id={row.ID}>Set Version</button>,
+
                 ignoreRowClick: true,
                 allowOverflow: true,
                 button: true,
